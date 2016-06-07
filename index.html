@@ -1,0 +1,47 @@
+<html>
+	<head>
+		<title>D.L.A.T.F.S.Y.F.C.</title>
+		<link rel="stylesheet" type="text/css" href="css/style.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+	</head>
+	<body ng-app="myApp">
+		<header>
+			<h1>Don't Look at the Fucking Screen You Fucking Cunts!</h1>
+		</header>
+		<article ng-controller="MainController">
+			<div id="addPlayer" ng-click="addPlayer()"><p>+ Add Player</p></div>
+
+			<div id="playerDetails">
+				<div id="playerForm">
+					  <h2>Name:</h2><br>
+					  <input type="text" name="firstname" style="font-size: 50px"><br>
+					  <h2>Colour:</h2><br>
+					  <div id="save-player" ng-click="savePlayer()"><h2>Save</h2></div>
+				</div>
+			</div>
+
+			<div class="contender" ng-repeat="player in players" ng-style="{'width': playerWidth}">
+
+				<div class="name">
+					<h2>{{ player.name }}</h2>
+				</div>
+
+				<div class="graph-container" ng-click="plusOne($index)">
+					<div class="graph" ng-style="{
+					'background-color': player.color, 
+					'height': player.height}">
+					</div>
+				</div>
+
+				<div class="score" ng-click="minusOne($index)">
+					<h2>{{ player.score }}</h2>
+				</div>
+			</div>
+		</article>
+
+    <script src="js/app.js"></script>
+    <script src="js/controllers/MainController.js"></script>
+
+	</body>
+</html>

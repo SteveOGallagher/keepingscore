@@ -1,0 +1,115 @@
+body {
+	margin: 0px;
+	color: #000;
+}
+
+header {
+	background-color: #003366;
+	color: white;
+	text-align: center;
+	padding: 35px;
+	font-size: 30px;
+}
+
+article {
+	position: relative;
+	width: 95%;
+	margin: auto;
+}
+
+h2 {
+	margin: auto;
+	padding: 40px;
+	font-size: 50px;
+	text-align: center;
+}
+
+.contender {
+	/*border: 1px dashed #000;*/
+	width: 46%;
+	margin-top: 20px;
+	margin: auto;
+	display: inline-block;
+	padding: 0px 2%;
+}
+
+.name {
+	margin: auto;
+}
+
+.graph-container {
+	height: 400px;
+	position: relative;
+}
+
+.graph {
+	width: 100%;
+	height: 100%;
+	background-color: red;
+	border-radius: 20px;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	-webkit-transition: height 0.8s ease;
+}
+
+.score {
+
+}
+
+input {
+	background-color: #89CDD6;
+	border: none;
+	margin-top: -20px;
+	border-bottom: 2px dashed #000;
+}
+
+#addPlayer {
+	position: absolute;
+	top: 0;
+	right: 2%;
+	width: 200px;
+	height: 40px;
+	text-align: center;
+	background-color: #89CDD6;
+}
+
+#addPlayer p {
+	color: white;
+	font-size: 26px;
+	padding: 0px;
+	margin: auto;
+	vertical-align: middle;
+}
+
+#playerDetails {
+	position: absolute;
+	top: 5%;
+	left: 5%;
+	opacity: 0;
+	width: 90%;
+	height: 600px;
+	background-color: #89CDD6;
+	z-index: -1000;
+	display:block;
+	-webkit-transition: opacity 1s ease, z-index 0.1s ease;
+}
+
+#playerForm {
+	margin: auto;
+	color: #FFF;
+	text-align: center;
+}
+
+.show {
+	opacity: 1 !important;
+	z-index: 1000 !important;
+	-webkit-transition: opacity 1s ease;
+}
+
+#save-player {
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	background-color: #90EE90;
+}
