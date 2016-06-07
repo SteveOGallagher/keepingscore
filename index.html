@@ -17,11 +17,16 @@
 					  <h2>Name:</h2><br>
 					  <input id="player-name" type="text" name="firstname" style="font-size: 50px"><br>
 					  <h2>Colour:</h2><br>
+
+					  <div class="colour-div" ng-repeat="colour in colours" ng-style="{'background-color': colour}" ng-click="selectColour($index)">
+					  	
+					  </div>
+
 					  <div id="save-player" ng-click="savePlayer()"><h2>Save</h2></div>
 				</div>
 			</div>
 
-			<div class="contender" ng-repeat="player in players" ng-style="{'width': playerWidth, 'padding': playerPadding}">
+			<div class="contender" ng-repeat="player in players" ng-style="{'width': playerWidth}">
 
 				<div class="name">
 					<h2>{{ player.name }}</h2>
