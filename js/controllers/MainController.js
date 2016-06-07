@@ -21,7 +21,10 @@ app.controller('MainController', ['$scope', function($scope) {
 
   $scope.total = $scope.players.length;
   $scope.overallScore = 0;
-  $scope.playerWidth = (100 / $scope.total) - ($scope.total * 2) + "%";
+  $scope.playerWidth = (100 / $scope.total) - ($scope.total * $scope.total) + "%";
+  $scope.playerPadding = '0px ' + $scope.total + '% !important';
+
+  $scope.colours = ['pink', 'grey', 'green', 'black', 'purple'];
 
   $scope.plusOne = function(index) { 
     $scope.players[index].score += 1; 
@@ -44,14 +47,18 @@ app.controller('MainController', ['$scope', function($scope) {
   	$('#playerDetails').toggleClass('show');
   };
   $scope.savePlayer = function() {
+    var playerName = document.getElementById('player-name').value;
+
   	$scope.players.push({
-  		name: 'Aoife', 
+  		name: playerName, 
 	    score: 0, 
-	    color: 'green',
+	    color: $scope.colours[Math.floor(Math.random() * $scope.colours.length)],
 	    height: '100%'
   	});
   	$scope.addPlayer();
-	$scope.playerWidth = (100 / $scope.players.length) - ($scope.players.length * 2) + "%";
+	  $scope.playerWidth = (100 / $scope.players.length) - ($scope.players.length) + "%";
+    $scope.playerPadding = '0px ' + (2 / $scope.players.length)  + '% !important';
+    console.log($scope.playerPadding);
   };
 }]);
 

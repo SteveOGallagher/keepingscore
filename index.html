@@ -15,13 +15,13 @@
 			<div id="playerDetails">
 				<div id="playerForm">
 					  <h2>Name:</h2><br>
-					  <input type="text" name="firstname" style="font-size: 50px"><br>
+					  <input id="player-name" type="text" name="firstname" style="font-size: 50px"><br>
 					  <h2>Colour:</h2><br>
 					  <div id="save-player" ng-click="savePlayer()"><h2>Save</h2></div>
 				</div>
 			</div>
 
-			<div class="contender" ng-repeat="player in players" ng-style="{'width': playerWidth}">
+			<div class="contender" ng-repeat="player in players" ng-style="{'width': playerWidth, 'padding': playerPadding}">
 
 				<div class="name">
 					<h2>{{ player.name }}</h2>
