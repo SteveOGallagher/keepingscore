@@ -37,6 +37,7 @@ h2 {
 	padding: 40px;
 	font-size: 50px;
 	text-align: center;
+	color: #003366;
 }
 
 textarea:focus, input:focus{
@@ -92,7 +93,7 @@ input {
 	margin: auto;
 }
 
-#edit-header {
+.font-awesome-icon {
 	position: absolute;
 	top: 10px;
 	right: 10px;
@@ -123,11 +124,13 @@ input {
 
 #addPlayer {
 	position: absolute;
-	top: 0;
+	top: -40px;
 	right: 2%;
 	width: 200px;
 	height: 40px;
 	background-color: #89CDD6;
+	opacity: 0;
+	-webkit-transition: opacity 0.4s ease;
 }
 
 #addPlayer p {

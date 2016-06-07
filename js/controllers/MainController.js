@@ -1,10 +1,5 @@
 app.controller('MainController', ['$scope', function($scope) { 
 
-  // $scope.title = "Keep Score";
-
-
-  // document.getElementById('game-name').innerHTML = $scope.title;
-
   $scope.test = "test";
 
   $scope.players = []; 
@@ -25,9 +20,12 @@ app.controller('MainController', ['$scope', function($scope) {
   };
 
   $scope.minusOne = function(index) { 
+    if ($scope.checkTopScore() == false && $scope.players[index].score == $scope.topScore) {
+      $scope.topScore -= 1; 
+    };
+
     $scope.players[index].score -= 1; 
     $scope.overallScore--;
-    // $scope.updateTopScore($scope.players[index].score);
     $scope.adjustHeights();
   };
 
@@ -35,6 +33,23 @@ app.controller('MainController', ['$scope', function($scope) {
     if (score > $scope.topScore){
       $scope.topScore = score;
     };
+  };
+
+  $scope.checkTopScore = function(score) {
+    var count = 0;
+    var multiple = false;
+
+    for (var i = 0; i < $scope.players.length; i++){
+      if ($scope.players[i].score == $scope.topScore){
+        count++;
+      };
+    }
+
+    if (count > 1){
+      multiple = true;
+    };
+
+    return multiple;
   };
 
   $scope.selectColour = function(index) { 
@@ -65,6 +80,11 @@ app.controller('MainController', ['$scope', function($scope) {
 
   $scope.addPlayer = function() { 
   	$('#playerDetails').toggleClass('show');
+    if (document.getElementById('addPlayer').innerHTML != "<p>Cancel</p>"){
+      document.getElementById('addPlayer').innerHTML = "<p>Cancel</p>"
+    } else {
+      document.getElementById('addPlayer').innerHTML = "<p>+ Add Player</p>"
+    }
   };
 
   $scope.savePlayer = function() {
@@ -89,6 +109,7 @@ app.controller('MainController', ['$scope', function($scope) {
 	  $scope.playerWidth = (100 / $scope.players.length) - 4 + "%";
     $scope.resetColours();
     $scope.currentColour = "black";
+    $('#addPlayer').removeClass('show');
   };
 }]);
 

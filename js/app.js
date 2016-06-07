@@ -1,11 +1,25 @@
 var app = angular.module("myApp", []);
 
 $('#header').mouseenter(function () {
-  $('#edit-header').toggleClass('show');
+  $('#edit-header').addClass('show');
+  $('#addPlayer').addClass('show');
 });
 
 $('#header').mouseleave(function () {
-  $('#edit-header').toggleClass('show');
+  $('#edit-header').removeClass('show');
+  $('#addPlayer').removeClass('show');
+});
+
+$('#addPlayer').mouseenter(function () {
+  $('#addPlayer').addClass('show');
+});
+
+$('#addPlayer').mouseleave(function () {
+  $('#addPlayer').removeClass('show');
+});
+
+$('#playerDetails').mouseenter(function () {
+  $('#addPlayer').addClass('show');
 });
 
 $('#edit-header').click(function(){
