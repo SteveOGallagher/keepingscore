@@ -2,20 +2,23 @@ app.controller('MainController', ['$scope', function($scope) {
 
   $scope.test = "test";
 
-  $scope.players = [
-    // {
-    //   name: "Bob", 
-    //   score: 0, 
-    //   color: 'green',
-    //   height: "100%"
-    // },
-    // {
-    //   name: "John", 
-    //   score: 0, 
-    //   color: "blue",
-    //   height: "100%"
-    // }
-  ]; 
+  $scope.players = [];
+
+  // Uncomment the below statement to use seed data
+  // $scope.players = [
+  //   {
+  //     name: "Bob", 
+  //     score: 0, 
+  //     color: 'green',
+  //     height: "100%"
+  //   },
+  //   {
+  //     name: "John", 
+  //     score: 0, 
+  //     color: "blue",
+  //     height: "100%"
+  //   }
+  // ]; 
 
   $scope.total = $scope.players.length;
   $scope.overallScore = 0;
@@ -26,6 +29,11 @@ app.controller('MainController', ['$scope', function($scope) {
   $scope.selectedPlayer = "";
   $scope.topScore = 0;
 
+  //
+  /* Update the game view with scoring displays */
+  //
+
+  // Add 1 point to the selected player
   $scope.plusOne = function(index) { 
     $scope.players[index].score += 1; 
     $scope.overallScore++;
@@ -33,6 +41,7 @@ app.controller('MainController', ['$scope', function($scope) {
     $scope.adjustHeights();
   };
 
+  // Subtract 1 point to the selected player
   $scope.minusOne = function(index) { 
     if ($scope.checkTopScore() == false && $scope.players[index].score == $scope.topScore) {
       $scope.topScore -= 1; 
@@ -43,12 +52,14 @@ app.controller('MainController', ['$scope', function($scope) {
     $scope.adjustHeights();
   };
 
+  // Update the top score if the new score is higher
   $scope.updateTopScore = function(score) {
     if (score > $scope.topScore){
       $scope.topScore = score;
     };
   };
 
+  // Check all scores to see if height adjustment is needed
   $scope.checkTopScore = function(score) {
     var count = 0;
     var multiple = false;
@@ -66,6 +77,26 @@ app.controller('MainController', ['$scope', function($scope) {
     return multiple;
   };
 
+  // Adjust all heights according to latest scores
+  $scope.adjustHeights = function() { 
+  	for (var contender = 0; contender < $scope.players.length; contender++)
+  	{
+      var score = $scope.players[contender].score / $scope.topScore;
+	    $scope.players[contender].height = (score * 100) + '%';
+  	};
+  };
+
+
+  //
+  /* Add Player Functions */
+  //
+
+  // Open the Add Player menu
+  $scope.addPlayer = function() { 
+    $scope.viewPlayerOptions('#playerDetails', 'addPlayer', "<p>Add Player</p>");
+  };
+
+  // Handle selection of particular colour
   $scope.selectColour = function(index) { 
     var allColours = document.getElementsByClassName('colour-div');
 
@@ -76,6 +107,7 @@ app.controller('MainController', ['$scope', function($scope) {
 
   };
 
+  // Make all non-selected elements generic
   $scope.resetColours = function () {
     var allColours = document.getElementsByClassName('colour-div');
 
@@ -84,6 +116,43 @@ app.controller('MainController', ['$scope', function($scope) {
     };
   };
 
+  // Update the model by adding the new player
+  $scope.savePlayer = function() {
+    var playerName = document.getElementById('player-name').value;
+    var random = Math.floor(Math.random() * $scope.colours.length);
+    var height = '100%';
+
+    if ($scope.overallScore != 0) {
+      height = '0%'
+    } 
+
+    $scope.players.push({
+      name: playerName, 
+      score: 0, 
+      color: $scope.currentColour,
+      height: height
+    });
+
+    document.getElementById('player-name').value = "";
+    $scope.colours.splice($scope.colours.indexOf($scope.currentColour),1);
+    $scope.addPlayer();
+    $scope.playerWidth = (100 / $scope.players.length) - 4 + "%";
+    $scope.resetColours();
+    $scope.currentColour = "black";
+    $('#addPlayer').removeClass('show');
+  };
+
+
+  //
+  /* Remove Player Functions */
+  //
+
+  // Open the Removal menu
+  $scope.removePlayer = function() { 
+    $scope.viewPlayerOptions('#player-list', 'removePlayer', "<p>Remove Player</p>");
+  };
+
+  // Handle selection of particular player
   $scope.selectPlayerToRemove = function(index) { 
     var allPlayers = document.getElementsByClassName('remove-player-name');
 
@@ -94,6 +163,7 @@ app.controller('MainController', ['$scope', function($scope) {
 
   };
 
+  // Make all non-selected elements generic
   $scope.resetPlayers = function () {
     var allPlayers = document.getElementsByClassName('remove-player-name');
 
@@ -102,32 +172,7 @@ app.controller('MainController', ['$scope', function($scope) {
     };
   };
 
-  $scope.adjustHeights = function() { 
-  	for (var contender = 0; contender < $scope.players.length; contender++)
-  	{
-      var score = $scope.players[contender].score / $scope.topScore;
-	    $scope.players[contender].height = (score * 100) + '%';
-  	};
-  };
-
-  $scope.addPlayer = function() { 
-  	$('#playerDetails').toggleClass('show');
-    if (document.getElementById('addPlayer').innerHTML != "<p>Cancel</p>"){
-      document.getElementById('addPlayer').innerHTML = "<p>Cancel</p>"
-    } else {
-      document.getElementById('addPlayer').innerHTML = "<p>Add Player</p>"
-    }
-  };
-
-  $scope.removePlayer = function() { 
-    $('#player-list').toggleClass('show');
-    if (document.getElementById('removePlayer').innerHTML != "<p>Cancel</p>"){
-      document.getElementById('removePlayer').innerHTML = "<p>Cancel</p>"
-    } else {
-      document.getElementById('removePlayer').innerHTML = "<p>Remove Player</p>"
-    }
-  };
-
+  // Update the model by removing the selected player
   $scope.saveRemoval = function() {
     $scope.players.splice($scope.selectedPlayer, 1);
     $scope.removePlayer();
@@ -135,29 +180,15 @@ app.controller('MainController', ['$scope', function($scope) {
     $('#removePlayer').removeClass('show');
   };
 
-  $scope.savePlayer = function() {
-    var playerName = document.getElementById('player-name').value;
-    var random = Math.floor(Math.random() * $scope.colours.length);
-    var height = '100%';
+  /* Reusable Functions */
 
-    if ($scope.overallScore != 0) {
-      height = '0%'
-    } 
-
-  	$scope.players.push({
-  		name: playerName, 
-	    score: 0, 
-	    color: $scope.currentColour,
-	    height: height
-  	});
-
-    document.getElementById('player-name').value = "";
-    $scope.colours.splice($scope.colours.indexOf($scope.currentColour),1);
-  	$scope.addPlayer();
-	  $scope.playerWidth = (100 / $scope.players.length) - 4 + "%";
-    $scope.resetColours();
-    $scope.currentColour = "black";
-    $('#addPlayer').removeClass('show');
+  $scope.viewPlayerOptions = function(viewToShow, buttonToAdjust, textToUpdate) {
+    $(viewToShow).toggleClass('show');
+    if (document.getElementById(buttonToAdjust).innerHTML != "<p>Cancel</p>"){
+      document.getElementById(buttonToAdjust).innerHTML = "<p>Cancel</p>";
+    } else {
+      document.getElementById(buttonToAdjust).innerHTML = textToUpdate;
+    }
   };
 }]);
 
