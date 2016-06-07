@@ -11,6 +11,21 @@ header {
 	font-size: 30px;
 }
 
+#header-editor {
+	position:absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 150px;
+	background-color: #003366;
+	color: white;
+	text-align: center;
+	padding: 35px;
+	opacity: 0;
+	z-index: -1000;
+	-webkit-transition: opacity 1s ease, z-index 0.1s ease;
+}
+
 article {
 	position: relative;
 	width: 95%;
@@ -24,6 +39,46 @@ h2 {
 	text-align: center;
 }
 
+textarea:focus, input:focus{
+    outline: none;
+}
+
+input {
+	background-color: #89CDD6;
+	color: black;
+	border: none;
+	margin: -20px auto 0px;
+	border-bottom: 2px dashed #FFF;
+	text-align: center;
+	-webkit-transition: color 0.4s ease;
+}
+
+#new-game-name {
+	margin-top: 20px;
+	background-color: #003366;
+}
+
+#cancel-game-name, #save-game-name {
+	width: 100px;
+	height: 60px;
+	text-align: center;
+	display: inline-block; 
+	margin: 10px 50px;
+	border-radius: 10%;
+}
+
+#cancel-game-name p, #save-game-name p {
+	margin-top: 12px;
+}
+
+#cancel-game-name {
+	background-color: grey;
+}
+
+#save-game-name {
+	background-color: #89CDD6;
+}
+
 .contender {
 	/*border: 1px dashed #000;*/
 	width: 46%;
@@ -35,6 +90,15 @@ h2 {
 
 .name {
 	margin: auto;
+}
+
+#edit-header {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	opacity: 0;
+	z-index: 1000;
+	-webkit-transition: opacity 1s ease;
 }
 
 .graph-container {
@@ -55,15 +119,6 @@ h2 {
 
 .score {
 
-}
-
-input {
-	background-color: #89CDD6;
-	color: #003366;
-	border: none;
-	margin: -20px auto 0px;
-	border-bottom: 2px dashed #000;
-	text-align: center;
 }
 
 #addPlayer {
@@ -110,7 +165,7 @@ input {
 	border-radius: 100%;
 	vertical-align: bottom;
 	display: inline-block;
-	-webkit-transition: border-radius 1s ease;
+	-webkit-transition: border-radius 0.4s ease;
 }
 
 .show {

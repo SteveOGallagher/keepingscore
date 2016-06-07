@@ -1,35 +1,40 @@
 app.controller('MainController', ['$scope', function($scope) { 
 
-  $scope.title = "Scores";
+  // $scope.title = "Keep Score";
+
+
+  // document.getElementById('game-name').innerHTML = $scope.title;
 
   $scope.test = "test";
 
-  $scope.players = [ 
-	  // { 
-	  //   name: 'Cerri', 
-	  //   score: 0, 
-	  //   color: 'pink',
-	  //   height: '100%'
-	  // }, 
-	  // { 
-	  //   name: 'Paul', 
-	  //   score: 0, 
-	  //   color: 'grey',
-	  //   height: '100%'
-	  // }
-	]; 
+  $scope.players = []; 
 
   $scope.total = $scope.players.length;
   $scope.overallScore = 0;
   $scope.playerWidth = (100 / $scope.total) - 4 + "%";
 
-  $scope.colours = ['red', 'orange', 'yellow', 'green', 'blue', 'indigo', 'violet', 'pink', 'grey', 'black'];
+  $scope.colours = ['red', 'orange', 'yellow', 'green', 'blue', 'indigo', 'pink', 'grey', 'black'];
   $scope.currentColour = "";
+  $scope.topScore = 0;
 
   $scope.plusOne = function(index) { 
     $scope.players[index].score += 1; 
     $scope.overallScore++;
+    $scope.updateTopScore($scope.players[index].score);
     $scope.adjustHeights();
+  };
+
+  $scope.minusOne = function(index) { 
+    $scope.players[index].score -= 1; 
+    $scope.overallScore--;
+    // $scope.updateTopScore($scope.players[index].score);
+    $scope.adjustHeights();
+  };
+
+  $scope.updateTopScore = function(score) {
+    if (score > $scope.topScore){
+      $scope.topScore = score;
+    };
   };
 
   $scope.selectColour = function(index) { 
@@ -39,6 +44,7 @@ app.controller('MainController', ['$scope', function($scope) {
     allColours[index].style.borderRadius = '0%';
 
     $scope.currentColour = $scope.colours[index];
+
   };
 
   $scope.resetColours = function () {
@@ -49,21 +55,15 @@ app.controller('MainController', ['$scope', function($scope) {
     };
   };
 
-  $scope.minusOne = function(index) { 
-    $scope.players[index].score -= 1; 
-    $scope.overallScore--;
-    $scope.adjustHeights();
-  };
-
   $scope.adjustHeights = function() { 
   	for (var contender = 0; contender < $scope.players.length; contender++)
   	{
-	    $scope.players[contender].height = ($scope.players[contender].score / $scope.overallScore * 100) + '%';
+      var score = $scope.players[contender].score / $scope.topScore;
+	    $scope.players[contender].height = (score * 100) + '%';
   	};
   };
 
   $scope.addPlayer = function() { 
-  	console.log("open player info");
   	$('#playerDetails').toggleClass('show');
   };
 
@@ -88,6 +88,7 @@ app.controller('MainController', ['$scope', function($scope) {
   	$scope.addPlayer();
 	  $scope.playerWidth = (100 / $scope.players.length) - 4 + "%";
     $scope.resetColours();
+    $scope.currentColour = "black";
   };
 }]);
 

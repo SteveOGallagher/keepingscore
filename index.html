@@ -1,13 +1,19 @@
 <html>
 	<head>
-		<title>D.L.A.T.F.S.Y.F.C.</title>
+		<title id="page-title">Keep Score</title>
 		<link rel="stylesheet" type="text/css" href="css/style.css">
+		<script src="https://use.fontawesome.com/f39cd67010.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
 	</head>
 	<body ng-app="myApp">
-		<header>
-			<h1>Keeping Score!</h1>
+		<header id="header">
+			<i class="fa fa-pencil" aria-hidden="true" id="edit-header"></i>
+			<div id="header-editor">
+					  <input id="new-game-name" type="text" name="firstname" style="font-size: 50px; color: #FFF"></br>
+					  <div id="save-game-name"><p>Save</p></div><div id="cancel-game-name"><p>Cancel</p></div>
+			</div>
+			<h1 id="game-name">Name Your Game</h1>
 		</header>
 		<article ng-controller="MainController">
 			<div id="addPlayer" ng-click="addPlayer()"><p>+ Add Player</p></div>
@@ -15,7 +21,7 @@
 			<div id="playerDetails">
 				<div id="playerForm">
 					  <h2>Name:</h2><br>
-					  <input id="player-name" type="text" name="firstname" style="font-size: 50px"><br>
+					  <input id="player-name" type="text" name="firstname" style="font-size: 50px" ng-style="{'color': currentColour}"><br>
 					  <h2>Colour:</h2><br>
 
 					  <div class="colour-div" ng-repeat="colour in colours" ng-style="{'background-color': colour}" ng-click="selectColour($index)">
