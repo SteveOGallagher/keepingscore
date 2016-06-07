@@ -2,14 +2,28 @@ app.controller('MainController', ['$scope', function($scope) {
 
   $scope.test = "test";
 
-  $scope.players = []; 
+  $scope.players = [
+    // {
+    //   name: "Bob", 
+    //   score: 0, 
+    //   color: 'green',
+    //   height: "100%"
+    // },
+    // {
+    //   name: "John", 
+    //   score: 0, 
+    //   color: "blue",
+    //   height: "100%"
+    // }
+  ]; 
 
   $scope.total = $scope.players.length;
   $scope.overallScore = 0;
   $scope.playerWidth = (100 / $scope.total) - 4 + "%";
 
-  $scope.colours = ['red', 'orange', 'yellow', 'green', 'blue', 'indigo', 'pink', 'grey', 'black'];
+  $scope.colours = ['orangered', 'orange', 'yellow', 'green', 'blue', 'indigo', 'pink', 'grey', 'black'];
   $scope.currentColour = "";
+  $scope.selectedPlayer = "";
   $scope.topScore = 0;
 
   $scope.plusOne = function(index) { 
@@ -70,6 +84,24 @@ app.controller('MainController', ['$scope', function($scope) {
     };
   };
 
+  $scope.selectPlayerToRemove = function(index) { 
+    var allPlayers = document.getElementsByClassName('remove-player-name');
+
+    $scope.resetPlayers();
+    allPlayers[index].style.color = 'red';
+
+    $scope.selectedPlayer = index;
+
+  };
+
+  $scope.resetPlayers = function () {
+    var allPlayers = document.getElementsByClassName('remove-player-name');
+
+    for (var p = 0; p < allPlayers.length; p++) {
+    allPlayers[p].style.color = '#003366';
+    };
+  };
+
   $scope.adjustHeights = function() { 
   	for (var contender = 0; contender < $scope.players.length; contender++)
   	{
@@ -83,8 +115,24 @@ app.controller('MainController', ['$scope', function($scope) {
     if (document.getElementById('addPlayer').innerHTML != "<p>Cancel</p>"){
       document.getElementById('addPlayer').innerHTML = "<p>Cancel</p>"
     } else {
-      document.getElementById('addPlayer').innerHTML = "<p>+ Add Player</p>"
+      document.getElementById('addPlayer').innerHTML = "<p>Add Player</p>"
     }
+  };
+
+  $scope.removePlayer = function() { 
+    $('#player-list').toggleClass('show');
+    if (document.getElementById('removePlayer').innerHTML != "<p>Cancel</p>"){
+      document.getElementById('removePlayer').innerHTML = "<p>Cancel</p>"
+    } else {
+      document.getElementById('removePlayer').innerHTML = "<p>Remove Player</p>"
+    }
+  };
+
+  $scope.saveRemoval = function() {
+    $scope.players.splice($scope.selectedPlayer, 1);
+    $scope.removePlayer();
+    $scope.playerWidth = (100 / $scope.players.length) - 4 + "%";
+    $('#removePlayer').removeClass('show');
   };
 
   $scope.savePlayer = function() {

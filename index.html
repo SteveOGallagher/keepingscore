@@ -16,9 +16,10 @@
 			<h1 id="game-name">Name Your Game</h1>
 		</header>
 		<article ng-controller="MainController">
-			<div id="addPlayer" ng-click="addPlayer()"><p>+ Add Player</p></div>
+			<div id="addPlayer" ng-click="addPlayer()" class="player-button"><p>Add Player</p></div>
+			<div id="removePlayer" ng-click="removePlayer()" class="player-button"><p>Remove Player</p></div>
 
-			<div id="playerDetails">
+			<div id="playerDetails" class="player-info">
 				<div id="playerForm">
 					  <h2>Name:</h2><br>
 					  <input id="player-name" type="text" name="firstname" style="font-size: 50px" ng-style="{'color': currentColour}"><br>
@@ -29,6 +30,18 @@
 					  </div>
 
 					  <div id="save-player" ng-click="savePlayer()"><h2>Save</h2></div>
+				</div>
+			</div>
+
+			<div id="player-list" class="player-info">
+				<div id="players-container">
+					  <h2>Select Player To Remove:</h2>
+
+					  <div class="player-list-item" ng-repeat="player in players">
+					  	<p class="remove-player-name" ng-click="selectPlayerToRemove($index)">{{ player.name}}</p>
+					  </div>
+
+					  <div id="save-player" ng-click="saveRemoval()"><h2>Save</h2></div>
 				</div>
 			</div>
 
