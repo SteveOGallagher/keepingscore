@@ -1,5 +1,7 @@
 var app = angular.module("myApp", []);
 
+//* This angular app entitled myApp is responsible for handling the CSS changes to the page *//
+
 /* Mouse events for Header section */
 
 $('#header').mouseenter(function () {

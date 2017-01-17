@@ -6,6 +6,8 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
 	</head>
+
+	<!-- Setup Angular App called 'myApp' for Header section -->
 	<body ng-app="myApp">
 		<header id="header">
 			<i class="fa fa-pencil font-awesome-icon" aria-hidden="true" id="edit-header"></i>
@@ -15,10 +17,14 @@
 			</div>
 			<h1 id="game-name">Name Your Game</h1>
 		</header>
+
+
+		<!-- Setup Angular App called 'MainController' for Header section -->
 		<article ng-controller="MainController">
 			<div id="addPlayer" ng-click="addPlayer()" class="player-button"><p>Add Player</p></div>
 			<div id="removePlayer" ng-click="removePlayer()" class="player-button"><p>Remove Player</p></div>
 
+			<!-- Create view for adding players -->
 			<div id="playerDetails" class="player-info">
 				<div id="playerForm">
 					  <h2>Name:</h2><br>
@@ -33,6 +39,7 @@
 				</div>
 			</div>
 
+			<!-- Create view for removing players -->
 			<div id="player-list" class="player-info">
 				<div id="players-container">
 					  <h2>Select Player To Remove:</h2>
@@ -45,6 +52,7 @@
 				</div>
 			</div>
 
+			<!-- For each Player in the players list, display their name, score, graph and link to app functions -->
 			<div class="contender" ng-repeat="player in players" ng-style="{'width': playerWidth}">
 
 				<div class="name">
@@ -62,6 +70,7 @@
 					<h2>{{ player.score }}</h2>
 				</div>
 			</div>
+
 		</article>
 
     <script src="js/app.js"></script>

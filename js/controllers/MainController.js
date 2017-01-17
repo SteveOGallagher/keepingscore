@@ -1,5 +1,7 @@
 app.controller('MainController', ['$scope', function($scope) { 
 
+//* This angular app entitled MainController is responsible for handling the game mechanics *//
+
   $scope.test = "test";
 
   $scope.players = [];
